@@ -5,7 +5,7 @@ Created on Sat Aug 29 15:33:41 2020
 @author: Shubham
 """
 
-from Assignment1 import *   
+from PESU_MI_0080_0329_1295 import *   
 
 def test_case():
     outlook = 'overcast,overcast,overcast,overcast,rainy,rainy,rainy,rainy,rainy,sunny,sunny,sunny,sunny,sunny'.split(',')

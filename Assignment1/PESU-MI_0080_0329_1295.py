@@ -5,7 +5,7 @@ import random
 '''Calculate the entropy of the enitre dataset'''
 #input:pandas_dataframe
 #output:int/float/double/large
-
+DEBUG = 0
 def get_entropy_of_dataset(df):
   entropy = 0
   values_last = df.keys()[-1]
@@ -13,7 +13,8 @@ def get_entropy_of_dataset(df):
   for value in unique_values_last:
     temp = df[values_last].value_counts()[value]/len(df[values_last])         #Counting the number of positives as well as negatives in each iteration and dividing with the total count.
     entropy+= -temp*np.log2(temp)
-  #print(entropy)
+  if DEBUG:
+    print(entropy)
   return entropy
 
 
@@ -30,16 +31,18 @@ def get_entropy_of_attribute(df,attribute):
   for cat in unique_attr:
     entropy_of_cat = 0  
     for value in unique_values_last:
-      #temp = df[values_last].value_counts()[value]/len(values_last)         #Counting the number of positives as well as negatives in each iteration and dividing with the total count.
-      top = len(df[attribute][df[attribute] == cat][df[values_last] == value])
+      #Counting the number of positives as well as negatives in each iteration and dividing with the total count.
       bottom = (len(df[attribute][df[attribute] == cat]) )
+      top = len(df[attribute][df[attribute] == cat][df[values_last] == value])
+
       temp = top/(bottom + np.finfo(np.float32).eps)
       entropy_of_cat += -temp*np.log2(temp + np.finfo(np.float32).eps)
      
-    f2 = bottom/len(df[values_last])
+    ratio = bottom/len(df[values_last])
     #print("DIFFerence",len(df), len(values_last))
-    entropy_of_attribute += -f2*entropy_of_cat
-  #print(entropy_of_attribute)
+    entropy_of_attribute += -ratio*entropy_of_cat
+  if DEBUG:  
+    print(entropy_of_attribute)
   return abs(entropy_of_attribute)
 
 
@@ -74,23 +77,20 @@ def get_selected_attribute(df):
   all_cols = df.keys()[:-1]
   max_gain = -999999
   max_col = ''
+  #eta = 0.001
   for col in all_cols:
     information_gains[col] = get_information_gain(df,col)
     if information_gains[col] > max_gain:
       max_gain = information_gains[col]
       max_col = col
-
-  
-
-
-
   '''
 	Return a tuple with the first element as a dictionary which has IG of all columns 
 	and the second element as a string with the name of the column selected
 
 	example : ({'A':0.123,'B':0.768,'C':1.23} , 'C')
 	'''
-  #print(information_gains,max_col)
+  if DEBUG:
+    print(information_gains,max_col)
   return (information_gains,max_col)
 
 
