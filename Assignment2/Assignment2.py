@@ -1,5 +1,6 @@
-DEBUG = 0
+
 from queue import Queue, PriorityQueue
+DEBUG = 1
 def A_star_Traversal(
     #add your parameters 
 ):
@@ -31,7 +32,79 @@ def UCS_Traversal(start_point, cost, goals):
     l = min(sols, key = lambda x : x[0])[1]
     print(l)
     return l
+def findMinVertex(stack):
+    min = 0
+    for i in range(1,len(stack)):
+        if stack[i] < stack[min]:
+            min = i
+    return stack.pop(min)
+'''        
+def DFS_Traversal(initial_state,final_states,cost):
+    stack = []
+    visited = set()
+    stack.append(initial_state)
+    path = []
+    found = 0
+    while len(stack):
+        parent = findMinVertex(stack)
+        if parent in visited:
+            continue
+        if parent in final_states:
+            found = parent
+            break
+        visited.add(parent)
+        children = [i for i in range(1,len(cost)) if cost[parent][i] > 0 ]
+        if DEBUG:
+            print("children",children)
+        for child in children:
+            stack.append(child)
+'''       
+              
+    
+
+
+def addToQueue(stack, vertex):
+    for index, ele in enumerate(stack):
+        if vertex > ele:
+            stack.insert(index,vertex)     
+def recurDFS(start, visited,cost,path,goals):
+    stack = []
+    stack.append(start)
+    while len(stack):
+        node = findMinVertex(stack)
+        if not visited[node]:
+            path.append(node)
+            visited[node] = True   
+        i = 1
+        if node in goals:
+            return 1
+        while i < len(cost):
+            if cost[node][i] > 0 and not visited[cost[node][i]]:
+                if DEBUG:
+                    print(node,i)
+                #addToQueue(stack,i)
+                stack.append(i)
+
+            i+=1
+    return -1
 '''
+def DFS_Traversal(initial_state,final_states,cost):
+    visited = [False]*(len(cost))
+    path = []
+    ans = 0
+    for i in range(1, len(cost)):
+        
+        if(not visited[i]):
+            ans = recurDFS(i, visited,cost,path,final_states)
+        if DEBUG:
+            print(visited)    
+        if ans:
+            break
+    if DEBUG:
+        print(path,ans)    
+    return path    
+    
+
     path_cost = 0
     frontier = PriorityQueue()
     frontier.put((0, start_point)) 
@@ -58,24 +131,26 @@ def DFS_Traversal(initial_state,final_states,cost):
     stack = [initial_state]
     visited = set()
 
-    while 1:
-        if len(stack) == 0 or (len(visited) == len(cost[0]) - 1):
-            break
+    while len(stack):
         if DEBUG:
             print("Stack values = ",stack)
         current_node = stack.pop()
-        visited.add(current_node)
-        path.append(current_node)
+        if current_node not in visited:
+            visited.add(current_node)
+            path.append(current_node)
 
         if current_node in final_states:
             break
 
-        for neighbour in range(len(cost) - 1, 1, -1):
+        for neighbour in range(len(cost)-1,1,-1):
             if neighbour not in visited and cost[current_node][neighbour] > 0:
                 if DEBUG:
                     print("Being added to stack = ",neighbour)
                 stack.append(neighbour)
+    if DEBUG:
+        print(path)            
     return path
+
 '''
 Function tri_traversal - performs DFS, UCS and A* traversals and returns the path for each of these traversals 
 
