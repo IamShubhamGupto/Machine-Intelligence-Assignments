@@ -41,7 +41,12 @@ def test_case():
         print("SAMPLE TEST CASE 2 FOR THE  UCS_TRAVERSAL FAILED")
     #except:
         #print("SAMPLE TEST CASE 2 FOR THE UCS_TRAVERSAL FAILED")
-
+    if (tri_traversal(cost,heuristic, 1, [6, 7, 10]))[2] == [1, 5, 4, 7]:
+        print("SAMPLE TEST CASE 3 FOR THE  A_star_TRAVERSAL PASSED")
+    else:
+        print("SAMPLE TEST CASE 3 FOR THE  A_star_TRAVERSAL FAILED")
+        #print(tri_traversal(cost,heuristic, 1, [6, 7, 10])[2])
+    '''    
     try:
         if (tri_traversal(cost,heuristic, 1, [6, 7, 10]))[2] == [1, 5, 4, 7]:
             print("SAMPLE TEST CASE 3 FOR THE  A_star_TRAVERSAL PASSED")
@@ -49,6 +54,7 @@ def test_case():
             print("SAMPLE TEST CASE 3 FOR THE  A_star_TRAVERSAL FAILED")
     except:
         print("SAMPLE TEST CASE 3 FOR THE A_star_TRAVERSAL FAILED")
+    '''    
 
 
 test_case()

@@ -1,12 +1,30 @@
 
 from queue import Queue, PriorityQueue
 DEBUG = 0
+
 def A_star_Traversal(
     initial_state, final_states, cost, heuristic
-):
-    l = []
-
-    return l
+): 
+    path = []
+    queue = PriorityQueue()
+    visited = set()
+    queue.put((0 + heuristic[initial_state], initial_state, [initial_state]))
+    while not queue.empty():
+        f_path_cost, current_node, path = queue.get()
+        visited.add(current_node)
+        if current_node in final_states:
+            if DEBUG:
+                print("[A STAR] ",path)
+            return path       
+        children = cost[current_node]
+        for child in range(1, len(children)):
+            if child not in visited and children[child] > 0:
+                    queue.put((f_path_cost + children[child] + heuristic[child] - heuristic[current_node], child, path + [child]))
+        if DEBUG:
+            print("[A STAR] Current f_path cost ",f_path_cost)
+            print("[A STAR] Current node ",current_node)
+            print("[A STAR] Path to current node ",path) 
+    return []
 
 def UCS_Traversal(
    initial_state,final_states,cost
@@ -16,20 +34,20 @@ def UCS_Traversal(
     visited = set()
     queue.put((0, initial_state, [initial_state]))
     while not queue.empty():
-        path_cost, node, path = queue.get()
-        visited.add(node)
-        if node in final_states:
-            break       
-        children = cost[node]
+        path_cost, current_node, path = queue.get()
+        visited.add(current_node)
+        if current_node in final_states:
+            return path      
+        children = cost[current_node]
         for child in range(1, len(children)):
-            if child not in visited and (children[child] > 0):
+            if child not in visited and children[child] > 0:
                     queue.put((path_cost + children[child], child, path + [child]))
         if DEBUG:
             print("[UCS] Current path cost ",path_cost)
-            print("[UCS] Current node ",node)
+            print("[UCS] Current node ",current_node)
             print("[UCS] Path to current node ",path) 
 
-    return path
+    return []
 
 def DFS_Traversal(
     initial_state,final_states,cost
@@ -45,25 +63,24 @@ def DFS_Traversal(
             path.append(current_node)
 
         if current_node in final_states:
-            break
+            if DEBUG:
+                print("[DFS] ",path)
+            return path
         no_neighbour = 1
         for neighbour in range(len(cost)-1,0,-1):
             if neighbour not in visited and cost[current_node][neighbour] > 0:
-                if DEBUG:
-                    print("[DFS] Being added to stack = ",neighbour)  
                 stack.append(neighbour)
                 no_neighbour = 0
-        if no_neighbour:
-            stack.append(path.pop())
-            children = [i for i in range(len(cost)) if i not in visited and cost[stack[-1]][i] > 0]
-            if len(children) > 0:
-                path.append(stack[-1])
+        if no_neighbour and len(path):
+                stack.append(path[-1])
+                children = [i for i in range(len(cost)) if i not in visited and cost[path[-1]][i] > 0]
+                if len(children) == 0:
+                    path.pop() 
         if DEBUG:        
-            print("[DFS] Current value of stack ",stack)        
-                
-    if DEBUG:
-        print("[DFS] ",path)            
-    return path
+            print("[DFS] Current value of stack ",stack) 
+            print("[DFS] no_neighbour value ",no_neighbour)       
+                            
+    return []
 '''
 Function tri_traversal - performs DFS, UCS and A* traversals and returns the path for each of these traversals 
 

@@ -61,6 +61,14 @@ def test_case():
     except:
         print("SAMPLE TEST CASE 1 FOR THE DFS_TRAVERSAL FAILED FULLYx")
     try:
+        # start node is 1, goal states to reach are 6,7 & 10
+        if (tri_traversal(cost,heuristic, 1, [1]))[0] == [1]:
+            print("SAMPLE TEST CASE 1 FOR THE  DFS_TRAVERSAL PASSED")
+        else:
+            print("SAMPLE TEST CASE 1 FOR THE  DFS_TRAVERSAL FAILED")
+    except:
+        print("SAMPLE TEST CASE 1 FOR THE DFS_TRAVERSAL FAILED FULLYx")    
+    try:
         #print((tri_traversal(cost,heuristic, 8, [6, 7, 10]))[0])
         if ((tri_traversal(cost,heuristic, 8, [6, 7, 10]))[0] == [8, 5, 4, 1, 2, 6]):
             print("SAMPLE TEST CASE 1 FOR THE  DFS_TRAVERSAL PASSED")
