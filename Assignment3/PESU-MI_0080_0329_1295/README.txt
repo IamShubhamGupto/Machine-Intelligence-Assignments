@@ -24,7 +24,7 @@ Model Description:
 		Learning rate decay - Learning rate/Number of epochs
 		random_state = 1000000007 - splitting test train data
 	
-	Key points about the model:
+	The model:
 		Started with simple forward and backward propagation
 		Added more layers due to fluctuating results
 		Initial layer weights are initialized using Xavier's initialization method
