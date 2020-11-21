@@ -15,4 +15,9 @@ Implementation of :
 * Implement a ANN from scratch using only numpy.
 * Dataset is provided and can be processed with pandas and sklearn
 
+### Team
+[Shubham Gupta](https://github.com/IamShubhamGupto)
+[Rikesh Kumar](https://github.com/rikeshkr)
+[Swarup Gummadi](https://github.com/swarup-gummadi)
+
 
