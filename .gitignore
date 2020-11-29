@@ -3,3 +3,5 @@
 *.pyc
 *.json
 *.zip
+*.vscode
+*.ipynb_checkpoints

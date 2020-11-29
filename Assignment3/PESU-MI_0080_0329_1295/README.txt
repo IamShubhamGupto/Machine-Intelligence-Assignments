@@ -74,4 +74,4 @@ Accuracy :  0.8571428571428571
 Maximum accuracy achieved on train dataset:
 Accuracy :  0.8153846153846154
 
-However we have achived higher accuracies for keeping y_hat threshold > 0.55 (84% on train and 85% on test) and y_hat > 0.5 (85% on train and 89% on test). We have achived 89% accuracy with 0.6 as a threshold but that seems like a occasional event - depends on random weight initialization. Hence we put our observed highest accuracy as 85%
+However we have achived higher accuracies for keeping y_hat threshold > 0.55 (84% on train and 85% on test) and y_hat > 0.5 (85% on train and 89% on test). We have achived 89% accuracy with 0.6 as a threshold but that seems like a occasional event - depends on random weight initialization.
